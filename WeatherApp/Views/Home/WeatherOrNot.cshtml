@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Weather Or Not";
+}
+
+
+<h2>WeatherJs</h2>
+<p id="reply"></p>
+<div><h1>Current Conditions From <span id="name"></span></h1></div>
+<div><span id="temp"></span>&deg; F</div>
+<div><span id="humidity"></span>% Humidity</div>
+
+<div><span id="pressure"></span> Pressure</div>
+
+<input id="city" placeholder="Enter City" />
+<button>Click This!</button>
+
+<div class="col-md-12">
+    <h1>Current Conditions in <span data-bind="text:name"></span></h1>
+
+</div>
+
+<script>
+    $(document).ready(
+
+        function () {
+            $("button").click(function () {
+
+                var cityName = $("#city").val();
+                $.get("@Url.Action("GetWeather","Home")",
+                    function (response) { //get method to access api
+                    //alert("hi");
+                    console.log(response);
+                    $("#reply").text(response.main.temp);
+                    $("#temp").text(response.main.temp);
+                    $("#name").text(response.name);
+                    $("#humidity").text(response.main.humidity);
+                    $("#pressure").text(response.main.pressure);
+                }); //get url response from weather api using ajax
+            });//button click
+        }); //after page loads, gets called after event before is finished
+
+
+
+
+</script>
